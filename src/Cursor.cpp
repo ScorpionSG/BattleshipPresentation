@@ -64,3 +64,15 @@ void Cursor::moveCursorDown() {
         attachedTo->replacePrintVectorElement(cursorIndex, icon);
     }
 }
+
+bool Cursor::getShouldBlink() {
+    return shouldBlink;
+}
+
+void Cursor::setShouldBlink(bool &boolean) {
+    shouldBlink = boolean;
+}
+
+void Cursor::setShouldBlink(bool boolean) {
+    shouldBlink = boolean;
+}

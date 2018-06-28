@@ -3,7 +3,8 @@
 #include <chrono>
 
 static bool inputCheckerRunning;
-static int blinkCountdown;
+enum blinkThreadCommand { blink, dont_blink, dont_update};
+blinkThreadCommand currentBlinkThreadCommand = blink;
 static Board* s_board;
 static Cursor* s_cursor;
 
@@ -13,136 +14,75 @@ void update();
 
 void clearConsole();
 
-void cursorTimer() {
-    using namespace std::literals::chrono_literals;
-    Board* board = s_board;
-    Cursor* cursor = s_cursor;
-
-    inputCheckerRunning = true;
-    blinkCountdown = 0;
-
-    while (inputCheckerRunning) {
-        if (blinkCountdown == 0) {
-            blinkCountdown = 4;
-        }
-        if (blinkCountdown % 2 != 0) {
-            (*cursor).setIcon('_');
-            clearConsole();
-            (*board).printToVector();
-            (*board).replacePrintVectorElement((*cursor).getCursorIndex(), (*cursor).getIcon());
-            //system("stty cooked");
-            //(*board).printBoard();
-        } else {
-            (*cursor).setIcon((*board).getTileGridTile((*cursor).getCursorIndex())->getIcon());
-            clearConsole();
-            (*board).printToVector();
-            (*board).replacePrintVectorElement((*cursor).getCursorIndex(), (*cursor).getIcon());
-            //system("stty cooked");
-            //(*board).printBoard();
-        }
-        //system("stty cooked");
-        (*board).printBoard();
-        system("stty raw");
-        std::this_thread::sleep_for(0.5s);
-        blinkCountdown--;
-    }
-}
-
-void blinkThenUpdate(Board& board, Cursor& cursor) {
-    if (blinkCountdown % 2 == 0) {
-        cursor.setIcon('_');
-    } else {
-        cursor.setIcon(board.getTileGridTile(cursor.getCursorIndex())->getIcon());
-    }
-}
+void cursorTimer();
 
 int main() {
-    system("save_state=$(stty -g)");
+    //system("save_state=$(stty -g)");
+    system("stty raw -echo");
 
     bool running = true;
 
+    //Creates the board, creates the tiles for the board, and then creates a print vector
     Board board;
-
     board.initTileGrid();
     board.printToVector();
 
+    //Creates the cursor and attaches it to the board
     Cursor cursor(board);
-    board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-    board.printBoard();
 
-    //update();
+    //Clears the console, prints the print vector, and draws the cursor if cursor.shouldBlink == true
+    //cursor.shouldBlink == true by default
+    update();
 
-    //Create timer thread
-    //void(*threadFood)(Board* board, Cursor* cursor) = cursorTimer;
+    //Ignore "escapes local scope" message
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-stack-address"
     s_board = &board;
     s_cursor = &cursor;
+#pragma clang diagnostic pop
+
+    //Create timer thread
     std::thread blinkTimer(cursorTimer);
 
     int wasdDirection;
     while (running) {
         bool switchRunning = true;
-        //system("stty -echo");
-        //system("stty icrnl inlcr ocrnl onlcr igncr ignbrk");
         while (switchRunning) {
-            system("stty raw -echo");
             wasdDirection = getchar();
             switch (wasdDirection) {
                 case 119: //Character W
-                    //system("stty \"$save_state\"");
                     cursor.moveCursorUp();
-                    blinkCountdown = 4;
-                    //clearConsole();
-                    //board.printBoard();
-                    clearConsole();
-                    board.printToVector();
-                    board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-                    //system("stty cooked");
-                    board.printBoard();
+//                    currentBlinkThreadCommand = 4;
+//                    clearConsole();
+//                    board.printToVector();
+//                    board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
+//                    board.printBoard();
+                    update();
                     break;
                 case 97: //Character A
                     cursor.moveCursorLeft();
-                    blinkCountdown = 4;
-                    clearConsole();
-                    board.printToVector();
-                    board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-                    //system("stty cooked");
-                    board.printBoard();
+                    currentBlinkThreadCommand = dont_update;
+                    update();
                     break;
                 case 115: //Character S
                     cursor.moveCursorDown();
-                    blinkCountdown = 4;
-                    clearConsole();
-                    board.printToVector();
-                    board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-                    //system("stty cooked");
-                    board.printBoard();
+                    currentBlinkThreadCommand = dont_update;
+                    update();
                     break;
                 case 100: //Character D
                     cursor.moveCursorRight();
-                    blinkCountdown = 4;
-                    clearConsole();
-                    board.printToVector();
-                    board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-                    //system("stty cooked");
-                    board.printBoard();
+                    currentBlinkThreadCommand = dont_update;
+                    update();
                     break;
                 case 32: //Space bar
                     if (board.getTileGridTile(cursor.getCursorIndex())->getIcon() == '#') {
                         board.getTileGridTile(cursor.getCursorIndex())->setIcon('O');
-                        blinkCountdown = 4;
-                        clearConsole();
-                        board.printToVector();
-                        board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-                        //system("stty cooked");
-                        board.printBoard();
+                        currentBlinkThreadCommand = dont_update;
+                        update();
                     } else {
                         board.getTileGridTile(cursor.getCursorIndex())->setIcon('#'); //main
-                        blinkCountdown = 4;
-                        clearConsole();
-                        board.printToVector();
-                        board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
-                        //system("stty cooked");
-                        board.printBoard();
+                        currentBlinkThreadCommand = dont_update;
+                        update();
                     }
                     break;
                 case 120: //Character X
@@ -164,9 +104,47 @@ int main() {
 }
 
 void clearConsole() {
-    system("clear");
+    system(R"(clear && printf '\e[3J')");
 }
 
 void update() {
+    //For all intents and purposes, the cursor icon IS visible while shouldBlink == true
+    //Therefore, you cannot see the icon of the tile beneath the cursor while shouldBlink == true
+    Board board = *s_board;
+    Cursor cursor = *s_cursor;
+
     clearConsole();
+    board.printToVector();
+    if (cursor.getShouldBlink()) {
+        board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
+    }
+    board.printBoard();
+}
+
+void cursorTimer() {
+    using namespace std::literals::chrono_literals;
+    Board board = *s_board;
+    Cursor cursor = *s_cursor;
+
+    inputCheckerRunning = true;
+    currentBlinkThreadCommand = blink;
+
+    while (inputCheckerRunning) {
+        if (currentBlinkThreadCommand == blink) {
+            if (!cursor.getShouldBlink()) {
+                cursor.setShouldBlink(true);
+            }
+            update();
+        } else if (currentBlinkThreadCommand == dont_blink) {
+            if (cursor.getShouldBlink()) {
+                cursor.setShouldBlink(false);
+            }
+            update();
+        } else if (currentBlinkThreadCommand == dont_update) {
+            if (cursor.getShouldBlink()) {
+                cursor.setShouldBlink(false);
+            }
+        }
+        std::this_thread::sleep_for(0.5s);
+    }
 }

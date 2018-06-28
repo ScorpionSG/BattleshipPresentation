@@ -13,6 +13,7 @@ private:
     Board *attachedTo;
     int attachedGridWidth, attachedGridHeight;
     char icon = '_'; //36 for $
+    bool shouldBlink = true;
 
 public:
     Cursor();
@@ -25,9 +26,15 @@ public:
 
     char getIcon();
 
+    bool getShouldBlink();
+
     void setIcon(char c);
 
     void setCursorIndex(int x);
+
+    void setShouldBlink(bool& boolean);
+
+    void setShouldBlink(bool boolean);
 
     void attachToBoard(Board& board);
 
