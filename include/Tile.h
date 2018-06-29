@@ -15,8 +15,6 @@ public:
 
     Tile(int x, int y);
 
-    ~Tile();
-
     int getXCoord();
 
     int getYCoord();

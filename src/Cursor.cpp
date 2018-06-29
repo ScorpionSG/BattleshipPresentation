@@ -13,8 +13,6 @@ Cursor::Cursor(Board& board) {
     attachToBoard(board);
 }
 
-Cursor::~Cursor() = default;
-
 int & Cursor::getCursorIndex() {
     return cursorIndex;
 }
@@ -40,37 +38,33 @@ void Cursor::attachToBoard(Board& board) {
 void Cursor::moveCursorRight() {
     if (cursorIndex + 1 <= attachedTo->getTileGridLength() && (cursorIndex + 1) % attachedTo->getWidth() != 0) {
         cursorIndex += 1;
-        attachedTo->replacePrintVectorElement(cursorIndex, icon);
+        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
     }
 }
 
 void Cursor::moveCursorLeft() {
     if (cursorIndex - 1 >= 0 && cursorIndex % attachedTo->getWidth() != 0) {
         cursorIndex -= 1;
-        attachedTo->replacePrintVectorElement(cursorIndex, icon);
+        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
     }
 }
 
 void Cursor::moveCursorUp() {
     if (cursorIndex + attachedTo->getWidth() <= attachedTo->getTileGridLength() - 1) {
         cursorIndex += attachedTo->getWidth();
-        attachedTo->replacePrintVectorElement(cursorIndex, icon);
+        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
     }
 }
 
 void Cursor::moveCursorDown() {
     if (cursorIndex - attachedTo->getWidth() >= 0) {
         cursorIndex -= attachedTo->getWidth();
-        attachedTo->replacePrintVectorElement(cursorIndex, icon);
+        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
     }
 }
 
 bool Cursor::getShouldBlink() {
     return shouldBlink;
-}
-
-void Cursor::setShouldBlink(bool &boolean) {
-    shouldBlink = boolean;
 }
 
 void Cursor::setShouldBlink(bool boolean) {

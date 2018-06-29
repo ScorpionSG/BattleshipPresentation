@@ -4,19 +4,13 @@
 
 #include "../include/Tile.h"
 
-Tile::Tile() {
-    xCoord = 0;
-    yCoord = 0;
-    icon = '#';
-}
+Tile::Tile() = default;
 
 Tile::Tile(int x, int y) {
     xCoord = x;
     yCoord = y;
     icon = '#';
 }
-
-Tile::~Tile() = default;
 
 int Tile::getXCoord() {
     return xCoord;

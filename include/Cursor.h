@@ -20,8 +20,6 @@ public:
 
     explicit Cursor(Board& board);
 
-    ~Cursor();
-
     int & getCursorIndex();
 
     char getIcon();
@@ -31,8 +29,6 @@ public:
     void setIcon(char c);
 
     void setCursorIndex(int x);
-
-    void setShouldBlink(bool& boolean);
 
     void setShouldBlink(bool boolean);
 
