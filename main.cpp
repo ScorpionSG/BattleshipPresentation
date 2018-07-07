@@ -3,12 +3,12 @@
 #include <chrono>
 
 static bool inputCheckerRunning;
-enum blinkThreadCommand { blink, dont_blink, dont_update, dont_update_attack };
+enum blinkThreadCommand {
+    blink, dont_blink, dont_update, dont_update_attack
+};
 blinkThreadCommand currentBlinkThreadCommand;
-static Board* s_board;
-static Cursor* s_cursor;
-
-static int threadWASD;
+static Board *s_board;
+static Cursor *s_cursor;
 
 void update(bool blink);
 
@@ -24,6 +24,10 @@ int main() {
     //Creates the board, creates the tiles for the board, and then creates a print vector
     Board board;
     board.initTileGrid();
+    //start: new test content
+    board.initShip(12, 2, Ship::RIGHT);
+    board.initShip(22, 1, Ship::LEFT);
+    //end: new test content
     board.printToVector();
 
     //Creates the cursor and attaches it to the board
@@ -48,39 +52,50 @@ int main() {
             wasdDirection = getchar();
             switch (wasdDirection) {
                 case 119: //Character W
-                    cursor.moveCursorUp();
+                    cursor.moveCursor(Cursor::UP);
                     update(true);
                     currentBlinkThreadCommand = dont_update;
                     break;
                 case 97: //Character A
-                    cursor.moveCursorLeft();
+                    cursor.moveCursor(Cursor::LEFT);
                     update(true);
                     currentBlinkThreadCommand = dont_update;
                     break;
                 case 115: //Character S
-                    cursor.moveCursorDown();
+                    cursor.moveCursor(Cursor::DOWN);
                     update(true);
                     currentBlinkThreadCommand = dont_update;
                     break;
                 case 100: //Character D
-                    cursor.moveCursorRight();
+                    cursor.moveCursor(Cursor::RIGHT);
                     update(true);
                     currentBlinkThreadCommand = dont_update;
                     break;
                 case 32: //Space bar
-                    if (board.getTileGridTile(cursor.getCursorIndex())->getIcon() == '#') {
-                        board.getTileGridTile(cursor.getCursorIndex())->setIcon('O');
-                        update(false);
-                        currentBlinkThreadCommand = dont_update_attack;
-                    } else {
-                        board.getTileGridTile(cursor.getCursorIndex())->setIcon('#'); //main
-                        update(false);
-                        currentBlinkThreadCommand = dont_update_attack;
+//                    if (board.getTileGridTile(cursor.getCursorIndex())->getIcon() == '#') {
+//                        board.getTileGridTile(cursor.getCursorIndex())->setIcon('O');
+//                        update(false);
+//                        currentBlinkThreadCommand = dont_update_attack;
+//                    } else {
+//                        board.getTileGridTile(cursor.getCursorIndex())->setIcon('#'); //main
+//                        update(false);
+//                        currentBlinkThreadCommand = dont_update_attack;
+//                    }
+                    if (board.getAmmo() > 0) {
+                        cursor.attackTile();
+                    } else if (board.getAmmo() == 0) {
+                        std::cout << "Press spacebar to end game." << '\r' << '\n';
+                        switchRunning = false;
+                        running = false;
+                        inputCheckerRunning = false;
                     }
+                    update(false);
+                    currentBlinkThreadCommand = dont_update_attack;
                     break;
                 case 120: //Character X
                     switchRunning = false;
                     running = false;
+                    inputCheckerRunning = false;
                     break;
                 default:
                     break;
@@ -92,6 +107,7 @@ int main() {
     clearConsole();
     blinkTimer.join();
 
+    std::cout << "Game has ended." << std::endl;
     std::cin.get();
     return 0;
 }
@@ -112,6 +128,7 @@ void update(bool blink) {
         board.replacePrintVectorElement(cursor.getCursorIndex(), cursor.getIcon());
     }
     board.printBoard();
+    board.printAmmo();
 }
 
 void cursorTimer() {

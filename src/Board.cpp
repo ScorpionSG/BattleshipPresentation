@@ -8,16 +8,19 @@
 Board::Board() {
     gridWidth = 5;
     gridHeight = 5;
+    ammo = 3;
 }
 
 Board::Board(int &size) {
     gridWidth = size;
     gridHeight = size;
+    ammo = 3;
 }
 
 Board::Board(int &width, int &height) {
     gridWidth = width;
     gridHeight = height;
+    ammo = 3;
 }
 
 Board::~Board() {
@@ -40,7 +43,15 @@ int Board::getHeight() {
     return gridHeight;
 }
 
-Tile* Board::getTileGridTile(int& index) {
+int Board::getAmmo() {
+    return ammo;
+}
+
+void Board::setAmmo(int x) {
+    ammo = x;
+}
+
+Tile* Board::getTileGridTile(int index) {
     return &tileGrid[index];
 }
 
@@ -50,6 +61,25 @@ void Board::initTileGrid() {
             tileGrid.emplace_back(Tile(iX, iY));
         }
     }
+}
+
+void Board::initShip(int position, int length, Ship::shipDirection direction) {
+    shipList.emplace_back(Ship(gridWidth, gridHeight, position, length, direction));
+    tileGrid[position].setIsOccupied(true);
+    tileGrid[position].setOccupiedBy(&shipList.back());
+    tileGrid[position].setOccupiedBySegment(0);
+    tileGrid[position].setIconThroughStatus();
+    shipList.back().createSegment(length - 1, direction);
+    for (int i = 1; i < length; i++) {
+        tileGrid[shipList.back().getSegmentCoordinatesAtIndex(i)].setIsOccupied(true);
+        tileGrid[shipList.back().getSegmentCoordinatesAtIndex(i)].setOccupiedBy(&shipList.back());
+        tileGrid[shipList.back().getSegmentCoordinatesAtIndex(i)].setOccupiedBySegment(i);
+        tileGrid[shipList.back().getSegmentCoordinatesAtIndex(i)].setIconThroughStatus();
+    }
+}
+
+void Board::addToShipList(Ship ship) {
+    shipList.emplace_back(ship);
 }
 
 void Board::printBoard() {
@@ -87,4 +117,9 @@ void Board::printBoardCoord() {
         }
         std::cout << std::endl;
     }
+}
+
+void Board::printAmmo() {
+    std::cout << '\r' << '\n';
+    std::cout << "Ammo remaining: " << ammo << '\r' << '\n';
 }

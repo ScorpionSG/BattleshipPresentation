@@ -8,12 +8,12 @@ Cursor::Cursor() {
     attachedTo = new Board();
 }
 
-Cursor::Cursor(Board& board) {
+Cursor::Cursor(Board &board) {
     cursorIndex = 0;
     attachToBoard(board);
 }
 
-int & Cursor::getCursorIndex() {
+int &Cursor::getCursorIndex() {
     return cursorIndex;
 }
 
@@ -29,37 +29,40 @@ void Cursor::setCursorIndex(int x) {
     cursorIndex = x;
 }
 
-void Cursor::attachToBoard(Board& board) {
+void Cursor::attachToBoard(Board &board) {
     attachedTo = &board;
     attachedGridWidth = attachedTo->getWidth();
     attachedGridHeight = attachedTo->getHeight();
 }
 
-void Cursor::moveCursorRight() {
-    if (cursorIndex + 1 <= attachedTo->getTileGridLength() && (cursorIndex + 1) % attachedTo->getWidth() != 0) {
-        cursorIndex += 1;
-        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
-    }
-}
-
-void Cursor::moveCursorLeft() {
-    if (cursorIndex - 1 >= 0 && cursorIndex % attachedTo->getWidth() != 0) {
-        cursorIndex -= 1;
-        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
-    }
-}
-
-void Cursor::moveCursorUp() {
-    if (cursorIndex + attachedTo->getWidth() <= attachedTo->getTileGridLength() - 1) {
-        cursorIndex += attachedTo->getWidth();
-        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
-    }
-}
-
-void Cursor::moveCursorDown() {
-    if (cursorIndex - attachedTo->getWidth() >= 0) {
-        cursorIndex -= attachedTo->getWidth();
-        //attachedTo->replacePrintVectorElement(cursorIndex, icon);
+void Cursor::moveCursor(Cursor::cursorDirection Direction) {
+    switch (Direction) {
+        case UP:
+            if (cursorIndex + attachedTo->getWidth() <= attachedTo->getTileGridLength() - 1) {
+                cursorIndex += attachedTo->getWidth();
+                //attachedTo->replacePrintVectorElement(cursorIndex, icon);
+            }
+            break;
+        case DOWN:
+            if (cursorIndex - attachedTo->getWidth() >= 0) {
+                cursorIndex -= attachedTo->getWidth();
+                //attachedTo->replacePrintVectorElement(cursorIndex, icon);
+            }
+            break;
+        case LEFT:
+            if (cursorIndex - 1 >= 0 && cursorIndex % attachedTo->getWidth() != 0) {
+                cursorIndex -= 1;
+                //attachedTo->replacePrintVectorElement(cursorIndex, icon);
+            }
+            break;
+        case RIGHT:
+            if (cursorIndex + 1 <= attachedTo->getTileGridLength() && (cursorIndex + 1) % attachedTo->getWidth() != 0) {
+                cursorIndex += 1;
+                //attachedTo->replacePrintVectorElement(cursorIndex, icon);
+            }
+            break;
+        default:
+            break;
     }
 }
 
@@ -69,4 +72,24 @@ bool Cursor::getShouldBlink() {
 
 void Cursor::setShouldBlink(bool boolean) {
     shouldBlink = boolean;
+}
+
+void Cursor::attackTile() {
+    Tile *focusTile = attachedTo->getTileGridTile(cursorIndex);
+    if (focusTile->getCurrentTileStatus() == Tile::Hit) {
+
+        focusTile->setIconThroughStatus();
+    } else if (focusTile->getCurrentTileStatus() == Tile::Miss) {
+
+        focusTile->setIconThroughStatus();
+    } else if (focusTile->getCurrentTileStatus() == Tile::Occupied) {
+
+        focusTile->setCurrentTileStatus(Tile::Hit);
+        focusTile->setIconThroughStatus();
+    } else if (focusTile->getCurrentTileStatus() == Tile::Unoccupied) {
+
+        attachedTo->setAmmo(attachedTo->getAmmo() - 1);
+        focusTile->setCurrentTileStatus(Tile::Miss);
+        focusTile->setIconThroughStatus();
+    }
 }

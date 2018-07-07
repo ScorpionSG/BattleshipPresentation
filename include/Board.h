@@ -7,13 +7,14 @@
 
 #include "Tile.h"
 #include <iostream>
-#include <vector>
 
 class Board {
 private:
     int gridWidth, gridHeight;
+    int ammo;
     std::vector<Tile> tileGrid;
     std::vector<char> printVector;
+    std::vector<Ship> shipList;
 
 public:
     Board();
@@ -32,9 +33,17 @@ public:
 
     int getHeight();
 
-    Tile* getTileGridTile(int& index);
+    int getAmmo();
+
+    void setAmmo(int x);
+
+    Tile* getTileGridTile(int index);
 
     void initTileGrid();
+
+    void initShip(int position, int length, Ship::shipDirection direction);
+
+    void addToShipList(Ship ship);
 
     void printBoard();
 
@@ -43,6 +52,8 @@ public:
     void replacePrintVectorElement(int& pos, char c);
 
     void printBoardCoord();
+
+    void printAmmo();
 };
 
 

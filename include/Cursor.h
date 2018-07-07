@@ -8,6 +8,8 @@
 #include "Board.h"
 
 class Cursor {
+public:
+    enum cursorDirection { UP, DOWN, LEFT, RIGHT };
 private:
     int cursorIndex;
     Board *attachedTo;
@@ -34,13 +36,9 @@ public:
 
     void attachToBoard(Board& board);
 
-    void moveCursorRight();
+    void moveCursor(cursorDirection Direction);
 
-    void moveCursorLeft();
-
-    void moveCursorUp();
-
-    void moveCursorDown();
+    void attackTile();
 };
 
 
