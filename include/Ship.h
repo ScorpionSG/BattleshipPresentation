@@ -11,11 +11,9 @@ class Ship {
 public:
     enum shipDirection { UP, DOWN, LEFT, RIGHT };
 private:
-    //static int totalShips;
     int gridWidth;
     int gridHeight;
     int bowPosition;
-    int shipID = 0;
     int shipLength;
     std::vector<int> segmentCoordinates;
     shipDirection currentShipDirection;
@@ -24,19 +22,15 @@ public:
 
     Ship(int width, int height, int position, int length, shipDirection direction);
 
-    int getID();
-
     int getShipLength();
 
     int getSegmentCoordinatesAtIndex(int index);
 
-    bool creationPossible(int additionalSegments, shipDirection direction);
-
-    void setID(int ID);
+    static bool creationPossible(int width, int height, int position, int length, shipDirection direction);
 
     void setShipLength(int length);
 
-    void createSegment(int additionalSegments, shipDirection direction);
+    void createSegment(shipDirection direction);
 };
 
 

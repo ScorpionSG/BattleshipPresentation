@@ -69,7 +69,7 @@ void Board::initShip(int position, int length, Ship::shipDirection direction) {
     tileGrid[position].setOccupiedBy(&shipList.back());
     tileGrid[position].setOccupiedBySegment(0);
     tileGrid[position].setIconThroughStatus();
-    shipList.back().createSegment(length - 1, direction);
+    shipList.back().createSegment(direction);
     for (int i = 1; i < length; i++) {
         tileGrid[shipList.back().getSegmentCoordinatesAtIndex(i)].setIsOccupied(true);
         tileGrid[shipList.back().getSegmentCoordinatesAtIndex(i)].setOccupiedBy(&shipList.back());

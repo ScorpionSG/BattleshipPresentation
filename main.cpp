@@ -25,8 +25,18 @@ int main() {
     Board board;
     board.initTileGrid();
     //start: new test content
-    board.initShip(12, 2, Ship::RIGHT);
-    board.initShip(22, 1, Ship::LEFT);
+    if (Ship::creationPossible(board.getWidth(), board.getHeight(), 12, 2, Ship::RIGHT)) {
+        board.initShip(12, 2, Ship::RIGHT);
+    }
+    if (Ship::creationPossible(board.getWidth(), board.getHeight(), 22, 2, Ship::LEFT)) {
+        board.initShip(22, 2, Ship::LEFT);
+    }
+    if (Ship::creationPossible(board.getWidth(), board.getHeight(), 10, 3, Ship::DOWN)) {
+        board.initShip(10, 3, Ship::DOWN);
+    }
+    if (Ship::creationPossible(board.getWidth(), board.getHeight(), 4, 4, Ship::UP)) {
+        board.initShip(4, 4, Ship::UP);
+    }
     //end: new test content
     board.printToVector();
 

@@ -68,7 +68,7 @@ void Tile::setIconThroughStatus() {
             icon = '#';
             break;
         case Occupied:
-            icon = '$';
+            icon = '#';
             break;
         case Miss:
             icon = 'O';
