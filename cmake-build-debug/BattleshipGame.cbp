@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="BattleshipGame"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BattleshipGame">
+				<Option output="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/BattleshipGame" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 BattleshipGame"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="BattleshipGame/fast">
+				<Option output="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/BattleshipGame" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 BattleshipGame/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/include/Board.h">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/include/Cursor.h">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/include/Ship.h">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/include/Tile.h">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/main.cpp">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/src/Board.cpp">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/src/Cursor.cpp">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/src/Ship.cpp">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/src/Tile.cpp">
+			<Option target="BattleshipGame"/>
+		</Unit>
+		<Unit filename="/Users/alielnour/CLionProjects/BattleshipGame/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,4 @@
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/alielnour/CLionProjects/BattleshipGame
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/alielnour/CLionProjects/BattleshipGame/cmake-build-debug
