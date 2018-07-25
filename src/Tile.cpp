@@ -27,6 +27,7 @@ char Tile::getIcon() {
 
 bool Tile::getIsOccupied() {
     return isOccupied;
+    //email: willechase@outlook
 }
 
 Tile::tileStatus Tile::getCurrentTileStatus() {
@@ -68,7 +69,7 @@ void Tile::setIconThroughStatus() {
             icon = '#';
             break;
         case Occupied:
-            icon = '#';
+            icon = '$';
             break;
         case Miss:
             icon = 'O';

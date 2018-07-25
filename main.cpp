@@ -113,6 +113,8 @@ int main() {
         }
         system("stty cooked");
         system("stty echo");
+        //Clear vector containing the occupied indexes (prevents overlap)
+//        Ship::clearOccupiedCoordinateVector();
     }
     clearConsole();
     blinkTimer.join();

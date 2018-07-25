@@ -55,6 +55,46 @@ bool Ship::creationPossible(int width, int height, int position, int length, shi
     return possible;
 }
 
+//bool Ship::creationSpaceAvailable(int width, int height, int position, int length, shipDirection direction) {
+//    //FIX THIS
+//    //FIX THIS
+//    //FIX THIS
+//    Ship testShip = Ship(width, height, position, length, direction);
+//    int additionalSegments = testShip.shipLength - 1;
+//    for (int i = 0; i < additionalSegments; i++) {
+//        switch (direction) {
+//            case UP:
+//                testShip.segmentCoordinates.push_back(testShip.bowPosition + (testShip.gridWidth * (i + 1)));
+//                for (int j = 0; j < occupiedCoordinates.size();j++) {
+//                    if (testShip.segmentCoordinates[i + 1] == occupiedCoordinates[j]) {
+//                        //Fix this trash conditional, I am tired and did not thoroughly check it.
+//                        /* The idea is "If the created segment at the latest index has the same value as any value
+//                         * in the list of occupied coordinates, end the test and return false.
+//                         * Also look up Derek Banas and Life at Google for curiosity.
+//                         */
+//                        return false;
+//                    }
+//                }
+//                break;
+//            case DOWN:
+//                testShip.segmentCoordinates.push_back(testShip.bowPosition - (testShip.gridWidth * (i + 1)));
+//                break;
+//            case LEFT:
+//                testShip.segmentCoordinates.push_back(testShip.bowPosition - 1 - i);
+//                break;
+//            case RIGHT:
+//                testShip.segmentCoordinates.push_back(testShip.bowPosition + 1 + i);
+//                break;
+//        }
+//    }
+//
+//    return true;
+//}
+//
+//void Ship::clearOccupiedCoordinateVector() {
+//    occupiedCoordinates.clear();
+//}
+
 void Ship::setShipLength(int length) {
     shipLength = length;
 }

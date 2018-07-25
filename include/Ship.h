@@ -11,6 +11,9 @@ class Ship {
 public:
     enum shipDirection { UP, DOWN, LEFT, RIGHT };
 private:
+    static std::vector<int> occupiedCoordinates;
+    static std::vector<int> hypotheticalCoordinates;
+
     int gridWidth;
     int gridHeight;
     int bowPosition;
@@ -27,6 +30,10 @@ public:
     int getSegmentCoordinatesAtIndex(int index);
 
     static bool creationPossible(int width, int height, int position, int length, shipDirection direction);
+
+//    static bool creationSpaceAvailable(int width, int height, int position, int length, shipDirection direction);
+//
+//    static void clearOccupiedCoordinateVector();
 
     void setShipLength(int length);
 
